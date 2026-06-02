@@ -18,5 +18,23 @@ int main(int argc, const char *argv[])
         printf("%s\n", heads_or_tails[rand_num]);
     }
 
+    if (strcmp(command, "compare") == 0)
+    {
+        //prob add some error messages? but idrc
+        if(argc < 4 || argc > 4)
+            return 0;
+
+        const char *s1, *s2 = "";
+        s1 = argv[2];
+        s2 = argv[3];
+        if (strcmp(s1, s2) == 0)
+        {
+            printf("true\n");
+        } else
+        {
+            printf("false\n");
+        }
+    }
+
     return 0;
 }
