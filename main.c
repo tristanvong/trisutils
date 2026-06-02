@@ -6,7 +6,7 @@
 int main(int argc, const char *argv[])
 {
     if (argc <= 1)
-        return 0;
+        return EXIT_FAILURE;
     
     const char *command = argv[1];
     srand(time(NULL));
@@ -22,7 +22,7 @@ int main(int argc, const char *argv[])
     {
         //prob add some error messages? but idrc
         if(argc < 4 || argc > 4)
-            return 0;
+            return EXIT_FAILURE;
 
         const char *s1, *s2 = "";
         s1 = argv[2];
@@ -36,5 +36,5 @@ int main(int argc, const char *argv[])
         }
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
