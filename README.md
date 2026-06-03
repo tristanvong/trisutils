@@ -1,2 +1,2 @@
 # trisutils
-CLI proj for trivial things that I don't want to use websites for (anymore)
+This project targets AMD64 Linux, can't guarantee it'll work on Windows, et al.
