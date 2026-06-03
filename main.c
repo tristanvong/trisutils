@@ -4,7 +4,7 @@
 #include <string.h>
 #include <time.h>
 
-#define COMMANDS "coin compare dice help lowercase"
+#define COMMANDS "coin compare dice help lower upper"
 #define PROGRAM_NAME "trisutils"
 
 void print_help()
@@ -70,12 +70,17 @@ int main(int argc, const char *argv[])
             return EXIT_FAILURE;
         }
     }
+    
+    if (strcmp(command, "help") == 0)
+    {
+        print_help();
+    }
 
-    if (strcmp(command, "lowercase") == 0)
+    if (strcmp(command, "lower") == 0)
     {
         if (argc < 3 || argc > 3)
         {
-            printf("Usage: %s lowercase [text]\n", PROGRAM_NAME);
+            printf("Usage: %s lower [text]\n", PROGRAM_NAME);
             return EXIT_FAILURE;
         }
 
@@ -87,9 +92,20 @@ int main(int argc, const char *argv[])
         printf("\n%s\n", user_input);//adding a newline b4 cus sometimes its hard to read
     }
 
-    if (strcmp(command, "help") == 0)
+    if (strcmp(command, "upper") == 0)
     {
-        print_help();
+        if (argc < 3 || argc > 3)
+        {
+            printf("Usage: %s upper [text]\n", PROGRAM_NAME);
+            return EXIT_FAILURE;
+        }
+
+        char *user_input = (char*) argv[2];
+        for (int i = 0; i < strlen(user_input); i++)
+        {
+            user_input[i] = toupper(user_input[i]);
+        }
+        printf("\n%s\n", user_input);//adding a newline b4 cus sometimes its hard to read
     }
 
     return EXIT_SUCCESS;
