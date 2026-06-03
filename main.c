@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 
-#define COMMANDS "coin compare help"
+#define COMMANDS "coin dice compare help"
 #define PROGRAM_NAME "trisutils"
 
 void print_help()
@@ -47,6 +47,26 @@ int main(int argc, const char *argv[])
         } else
         {
             printf("false\n");
+        }
+    }
+
+    if (strcmp(command, "dice") == 0)
+    {
+        int rand_num, die_faces;
+        die_faces = 6;
+        if (argc == 2)
+        {
+            rand_num = (rand() % die_faces) + 1;
+            printf("%d\n", rand_num);
+        } else if (argc == 3)
+        {
+            die_faces = atoi(argv[2]);
+            rand_num = (rand() % die_faces) + 1;
+            printf("%d\n", rand_num);
+        } else if (argc > 3)
+        {
+            printf("Usage: %s dice [optional size]\n", PROGRAM_NAME);
+            return EXIT_FAILURE;
         }
     }
 
