@@ -1,5 +1,5 @@
 install: main.c
-	cc main.c -o /usr/local/bin/trisutil
+	cc main.c -o /usr/local/bin/trisutils
 
 uninstall:
-	rm /usr/local/bin/trisutil
+	rm /usr/local/bin/trisutils
