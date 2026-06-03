@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -68,6 +69,22 @@ int main(int argc, const char *argv[])
             printf("Usage: %s dice [optional size]\n", PROGRAM_NAME);
             return EXIT_FAILURE;
         }
+    }
+
+    if (strcmp(command, "lowercase") == 0)
+    {
+        if (argc < 3 || argc > 3)
+        {
+            printf("Usage: %s lowercase [text]\n", PROGRAM_NAME);
+            return EXIT_FAILURE;
+        }
+
+        char *user_input = (char*) argv[2];
+        for (int i = 0; i < strlen(user_input); i++)
+        {
+            user_input[i] = tolower(user_input[i]);
+        }
+        printf("\n%s\n", user_input);//adding a newline b4 cus sometimes its hard to read
     }
 
     if (strcmp(command, "help") == 0)
