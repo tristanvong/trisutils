@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 
-#define COMMANDS "help coin compare"
+#define COMMANDS "coin compare help"
 #define PROGRAM_NAME "trisutils"
 
 void print_help()
@@ -22,11 +22,6 @@ int main(int argc, const char *argv[])
     
     const char *command = argv[1];
     srand(time(NULL));
-
-    if (strcmp(command, "help") == 0)
-    {
-        print_help();
-    }
 
     if (strcmp(command, "coin") == 0)
     {
@@ -53,6 +48,11 @@ int main(int argc, const char *argv[])
         {
             printf("false\n");
         }
+    }
+
+    if (strcmp(command, "help") == 0)
+    {
+        print_help();
     }
 
     return EXIT_SUCCESS;
