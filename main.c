@@ -4,7 +4,7 @@
 #include <string.h>
 #include <time.h>
 
-#define COMMANDS "coin dice compare help"
+#define COMMANDS "coin compare dice help lowercase"
 #define PROGRAM_NAME "trisutils"
 
 void print_help()
