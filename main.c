@@ -4,7 +4,7 @@
 #include <string.h>
 #include <time.h>
 
-#define COMMANDS "coin compare dice help lower upper"
+#define COMMANDS "coin compare dice discount help lower upper"
 #define PROGRAM_NAME "trisutils"
 
 void print_help()
@@ -70,6 +70,22 @@ int main(int argc, const char *argv[])
             return EXIT_FAILURE;
         }
     }
+
+    if (strcmp(command, "discount") == 0)
+    {
+        if (argc < 4 || argc > 4)
+        {
+            printf("Usage: %s discount [original price] [discount in percentage]\n", PROGRAM_NAME);
+            return EXIT_FAILURE;
+        }
+        
+        double original_price, discounted_price, discount_percent;
+        original_price = atof(argv[2]);
+        discount_percent = atof(argv[3]);
+        discounted_price = original_price - ((discount_percent / 100) * original_price);
+        printf("%.2f\n", discounted_price);
+    }
+    
     
     if (strcmp(command, "help") == 0)
     {
