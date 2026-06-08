@@ -12,7 +12,7 @@
 void print_help()
 {
     printf("Available commands: %s\n", COMMANDS);
-    printf("Usage: %s [COMMAND]\n", PROGRAM_NAME);
+    printf("Usage: %s [-options] COMMAND\n", PROGRAM_NAME);
 }
 
 /*
@@ -53,15 +53,32 @@ int main(int argc, const char *argv[])
 
     if (strcmp(command, "compare") == 0)
     {
-        if(argc < 4 || argc > 4)
+        if(argc < 4 || argc > 5)
         {
-            printf("Usage: %s compare [text1] [text2]\n", PROGRAM_NAME);
+            printf("Usage: %s compare [-i|--case-ignore] text1 text2\n", PROGRAM_NAME);
             return EXIT_FAILURE;
         }
 
-        const char *s1, *s2 = "";
-        s1 = argv[2];
-        s2 = argv[3];
+        char *s1, *s2;
+        s1 = (char*)argv[2];
+        s2 = (char*)argv[3];
+
+        if (argc == 5 &&(strcmp(argv[2], "-i") == 0 || strcmp(argv[2], "--case-ignore") == 0))
+        {
+            s1 = (char*)argv[3];
+            s2 = (char*)argv[4];
+
+            for (int i = 0; i < strlen(s1); i++)
+            {
+                s1[i] = tolower(s1[i]);
+            }
+
+            for (int i = 0; i < strlen(s2); i++)
+            {
+                s2[i] = tolower(s2[i]);
+            }
+        }
+        
         if (strcmp(s1, s2) == 0)
         {
             printf("true\n");
@@ -79,9 +96,12 @@ int main(int argc, const char *argv[])
         if (argc == 3)
         {
             die_faces = atoi(argv[2]);
+            if (die_faces == 0)
+                return EXIT_FAILURE;
+
         } else if (argc > 3)
         {
-            printf("Usage: %s dice [optional size]\n", PROGRAM_NAME);
+            printf("Usage: %s dice [optional_size]\n", PROGRAM_NAME);
             return EXIT_FAILURE;
         }
         
@@ -93,7 +113,7 @@ int main(int argc, const char *argv[])
     {
         if (argc < 4 || argc > 4)
         {
-            printf("Usage: %s discount [original price] [discount in percentage]\n", PROGRAM_NAME);
+            printf("Usage: %s discount original_price discount_in_percentage\n", PROGRAM_NAME);
             return EXIT_FAILURE;
         }
         
@@ -104,7 +124,6 @@ int main(int argc, const char *argv[])
         printf("%.2f\n", discounted_price);
     }
     
-    
     if (strcmp(command, "help") == 0)
     {
         print_help();
@@ -114,7 +133,7 @@ int main(int argc, const char *argv[])
     {
         if (argc < 3 || argc > 3)
         {
-            printf("Usage: %s lower [text]\n", PROGRAM_NAME);
+            printf("Usage: %s lower text\n", PROGRAM_NAME);
             return EXIT_FAILURE;
         }
 
@@ -130,7 +149,7 @@ int main(int argc, const char *argv[])
     {
         if (argc < 3 || argc > 3)
         {
-            printf("Usage: %s upper [text]\n", PROGRAM_NAME);
+            printf("Usage: %s upper text\n", PROGRAM_NAME);
             return EXIT_FAILURE;
         }
 
