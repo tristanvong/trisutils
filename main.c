@@ -4,6 +4,8 @@
 #include <string.h>
 #include <time.h>
 
+#include <openssl/rand.h>
+
 #define COMMANDS "coin compare dice discount help lower upper"
 #define PROGRAM_NAME "trisutils"
 
@@ -11,6 +13,25 @@ void print_help()
 {
     printf("Available commands: %s\n", COMMANDS);
     printf("Usage: %s [COMMAND]\n", PROGRAM_NAME);
+}
+
+/*
+    Thanks, George Koehler
+    https://stackoverflow.com/a/31282121 */
+/* Random integer in [0, limit) */
+unsigned int random_uint(unsigned int limit) {
+    union {
+        unsigned int i;
+        unsigned char c[sizeof(unsigned int)];
+    } u;
+
+    do {
+        if (!RAND_bytes(u.c, sizeof(u.c))) {
+            fprintf(stderr, "Can't get random bytes!\n");
+            exit(1);
+        }
+    } while (u.i < (-limit % limit)); /* u.i < (2**size % limit) */
+    return u.i % limit;
 }
 
 int main(int argc, const char *argv[])
@@ -22,11 +43,10 @@ int main(int argc, const char *argv[])
     }
     
     const char *command = argv[1];
-    srand(time(NULL));
 
     if (strcmp(command, "coin") == 0)
     {
-        int rand_num = rand() % 2;
+        int rand_num = (int)(random_uint(2));
         const char *heads_or_tails[2] = {"heads", "tails"};
         printf("%s\n", heads_or_tails[rand_num]);
     }
@@ -55,20 +75,18 @@ int main(int argc, const char *argv[])
     {
         int rand_num, die_faces;
         die_faces = 6;
-        if (argc == 2)
-        {
-            rand_num = (rand() % die_faces) + 1;
-            printf("%d\n", rand_num);
-        } else if (argc == 3)
+
+        if (argc == 3)
         {
             die_faces = atoi(argv[2]);
-            rand_num = (rand() % die_faces) + 1;
-            printf("%d\n", rand_num);
         } else if (argc > 3)
         {
             printf("Usage: %s dice [optional size]\n", PROGRAM_NAME);
             return EXIT_FAILURE;
         }
+        
+        rand_num = (int)(random_uint(die_faces) + 1);
+        printf("%d\n", rand_num);
     }
 
     if (strcmp(command, "discount") == 0)
@@ -105,7 +123,7 @@ int main(int argc, const char *argv[])
         {
             user_input[i] = tolower(user_input[i]);
         }
-        printf("\n%s\n", user_input);//adding a newline b4 cus sometimes its hard to read
+        printf("\n%s\n", user_input);
     }
 
     if (strcmp(command, "upper") == 0)
@@ -121,7 +139,7 @@ int main(int argc, const char *argv[])
         {
             user_input[i] = toupper(user_input[i]);
         }
-        printf("\n%s\n", user_input);//adding a newline b4 cus sometimes its hard to read
+        printf("\n%s\n", user_input);
     }
 
     return EXIT_SUCCESS;
