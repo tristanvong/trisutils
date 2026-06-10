@@ -228,7 +228,7 @@ int main(int argc, const char *argv[])
                 count_word++;
             }
 
-            if (c == '\n' && found_match)
+            if (found_match && c == '\n')
             {
                 /* somehow put the word in a var and result string see above text for more info */
                 printf("\n");
